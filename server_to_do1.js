@@ -15,20 +15,20 @@ app.get('/todos',function(req,res){
 	//res.send('TO DO APLLICATION');
 }); 
 
-// app.get('/todos/:id',function(req,res){
-	// var userId = parseInt(req.params.id,10);
-	// var matchID;
-	// todos.forEach(function(todo){
-		// if(userId === todo.id){
-			// matchID=todo;
-		// }
-	// });
-	// if(matchID){
-		// res.send(matchID);
-	// }else{
-	// res.status(404).send();
-	// }
-// }); 
+app.get('/todos/:id',function(req,res){
+	var userId = parseInt(req.params.id,10);
+	var matchID;
+	todos.forEach(function(todo){
+		if(userId === todo.id){
+			matchID=todo;
+		}
+	});
+	if(matchID){
+		res.send(matchID);
+	}else{
+	res.status(404).send();
+	}
+}); 
 
 app.post('/todos',function(req,res){
 	var body=req.body;
