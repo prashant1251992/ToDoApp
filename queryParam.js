@@ -13,20 +13,28 @@ var todosID =1;
 
 app.use(bodyParser.json());
 
+// app.get('/todos',function(req,res){
+	// res.json(todos);
+// }); 
+
+// query Parameter
 app.get('/todos',function(req,res){
-	res.json(todos);
+	var queryParam = req.query;
+	var filteredTodos = todos;
+	if(queryParam.hasOwnProperty('completed') && queryParam.completed ==='true'){
+		filteredTodos=_.where(filteredTodos,{completed:true});
+	}else if(queryParam.hasOwnProperty('completed') && queryParam.completed ==='false'){
+		filteredTodos=_.where(filteredTodos,{completed:false});
+	}
+	res.json(filteredTodos);
 }); 
+
+
 
 app.get('/todos/:id',function(req,res){
 	var userId = parseInt(req.params.id,10);// here 10 is base means it is decimal
 	var matchID=_.findWhere(todos,{id:userId});
 	
-	//var matchID;
-	// todos.forEach(function(todo){
-		// if(userId === todo.id){
-			// matchID=todo;
-		// }
-	// });
 	if(matchID){
 		res.send(matchID);
 	}else{
