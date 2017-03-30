@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 
 app.get('/todos',function(req,res){
 	res.json(todos);
-	//res.send('TO DO APLLICATION');
 }); 
 
 app.get('/todos/:id',function(req,res){
@@ -36,18 +35,17 @@ app.get('/todos/:id',function(req,res){
 }); 
 
 app.post('/todos',function(req,res){
-	var body=req.body;
-	if(!_isBoolean(body.completed) || !_isString(body.description) || body.description.trim().lenght==0){
-		res.status(404).send();
+	var body=_.pick(req.body,'description','completed');
+	
+	if((!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().lenght==0)){
+		
+		return res.status(404).send('BAD REQUEST');
 	}
-	body.id=todosID++;
+	body.description=body.description.trim();
+	body.EID=todosID++;
 	todos.push(body);
 	res.json(body);
 }); 
-
-// app.get('/',function(req,res){
-	// res.send('TO DO APLLICATION');
-// }); 
 
 
 app.listen(PORT,function(req,res){

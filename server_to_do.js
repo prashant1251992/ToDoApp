@@ -16,11 +16,15 @@ var todos = [{
 	id: 3,
 	discription: '3rd Case',
 	completed : true
+},{
+	id: 4,
+	discription: '3rd Case',
+	completed : true
 }];
 
 app.get('/todos',function(req,res){
 	res.json(todos);
-	res.send('TO DO APLLICATION');
+	
 }); 
 
 app.get('/todos/:id',function(req,res){
